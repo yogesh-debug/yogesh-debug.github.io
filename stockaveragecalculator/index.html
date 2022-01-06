@@ -1,0 +1,207 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+  <title>Stock market Average Calculator - India</title>
+  <meta charset="UTF-8">
+  <meta name="description" content="This application allows to calculate stock average on entering first and second buy details" />
+  <meta name="keywords" content="Indian stock market, average calculator, stock calculator, cash and carry calculator,">
+  <meta name="author" content="Yogesh">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <!-- Styles -->
+  <link href="https://fonts.googleapis.com/css?family=Open+Sans" rel="stylesheet">
+  <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0-alpha.6/css/bootstrap.min.css" integrity="sha384-rwoIResjU2yc3z8GV/NPeZWAv56rSmLldC3R/AZzGRnGxQQKnKkoFVhFQhNUwEyJ"
+    crossorigin="anonymous">
+  <style>
+    html {
+      position: relative;
+      min-height: 100%;
+    }
+
+    body {
+      font-family: 'Open Sans', sans-serif;
+      margin: 20px 50px 60px 50px;
+    }
+
+    .st {
+      margin: 10px 0px;
+    }
+
+    .btn {
+      cursor: pointer;
+    }
+
+    span {
+      color: #ef6666;
+    }
+
+    bold {
+      font-weight: bold;
+    }
+    input[type="number"] {
+      text-align: right;
+    }
+
+    #investedamount1,#investedamount2 {
+     text-align: right;
+    color: green;
+    padding-right: 23px;
+    border-top: 1px solid;
+    padding-top: 10px;
+    font-size: 14px;
+    }
+    #investedamount1 span,#investedamount2 span {
+    padding-right: 12px;
+    font-size: 11px;
+    color: green;
+    }
+     #result {
+       margin-top: 15px;
+     }
+    #result span {
+      padding-right: 12px;
+    font-size: 14px;
+    color: green;
+    }
+    footer {
+      position: absolute;
+      bottom: 0;
+      width: 100%;
+      height: 53px;
+      background-color: #f5f5f5;
+      text-align: center;
+      padding-top: 13px;
+    }
+  </style>
+</head>
+
+<body>
+  <div class="container-fluid">
+    <div class="row">
+      <div class="col-md-12">
+        <header>
+          <h2 style="color: #929292;margin-top: 15px;">Indian Stock Market Average Calculator</h2>
+        </header>
+        <hr/>
+      </div>
+    </div>
+    <div class="row">
+      <div class="col-md-4 st">
+        <h4>First Buy</h3>
+          <hr>
+          <div>
+            <label style="float:left;margin-right:10px;">Units</label>
+            <input class="form-control" type="number" id="units1" autocomplete="off" onchange="unitChanged('units1','error1')" />
+            <span id='error1'></span>
+          </div>
+          <div style="margin-top:15px">
+            <label style="float:left;margin-right:10px;">Price</label>
+            <input class="form-control" type="number" id="Price1" autocomplete="off" onchange="unitChanged('Price1','error2')" />
+            <span id='error2'></span>
+          </div>
+      </div>
+      <div class="col-md-4 st">
+        <h4>Second Buy</h3>
+          <hr>
+          <div>
+            <label style="float:left;margin-right:10px;">Units</label>
+            <input class="form-control" type="number" id="units2" autocomplete="off" onchange="unitChanged('units2','error3')" />
+            <span id='error3'></span>
+          </div>
+          <div style="margin-top:15px">
+            <label style="float:left;margin-right:10px;">Price</label>
+            <input class="form-control" type="number" id="Price2" autocomplete="off" onchange="unitChanged('Price2','error4');getAverage()">
+            <span id='error4'></span>
+          </div>
+      </div>
+      <div class="col-md-1 st">
+      </div>
+      <div class="col-md-3 st">
+        <div>
+          <h4>Other Usefull Apps</h4>
+          <hr>
+         <div>
+           <ul>
+             <li>Profit Calculator</li>
+           </ul>
+        </div>
+        </div>
+      </div>
+    </div>
+    <div class="row">
+      <div class="col-md-4">
+        <h5 id="investedamount1"></h5>
+      </div>
+      <div class="col-md-4">
+          <h5 id="investedamount2"></h5>
+      </div>
+    </div>
+    <div class="row">
+      <div class="col-md-12 st">
+        <h5 id="result"></h5>
+      </div>
+      <div class="col-md-12 st">
+        <button class="btn btn-success" onclick="getAverage()"> Calculate Average</button>
+        <button class="btn btn-warning" onclick="clearFields()">Clear Fields</button>
+      </div>
+    </div>
+  </div>
+  <footer>
+    <div class="container">
+      &copy; free to use share or modify.  August - 2017. Feedback:praveen_mp@live.com</div>
+  </footer>
+
+  </div>
+  <script>
+    function unitChanged(id, error) {
+      if (document.getElementById(id).value != '') {
+        document.getElementById(error).innerHTML = '';
+        return;
+      } else {
+        document.getElementById(error).innerHTML = 'Field is Required';
+      }
+    }
+    function getAverage() {
+
+      if (document.getElementById("units1").value == '') {
+        document.getElementById("error1").innerHTML = "Units required";
+        return;
+      } else if (document.getElementById("Price1").value == '') {
+        document.getElementById("error2").innerHTML = "Price required";
+        return;
+      } else if (document.getElementById("units2").value == '') {
+        document.getElementById("error3").innerHTML = "Units required";
+        return;
+      } else if (document.getElementById("Price2").value == '') {
+        document.getElementById("error4").innerHTML = "Price required";
+        return;
+      }
+
+      var unit1 = document.getElementById("units1").value;
+      var price1 = document.getElementById("Price1").value;
+      var unit2 = document.getElementById("units2").value;
+      var price2 = document.getElementById("Price2").value;
+
+      var res1 = (unit1 * price1) + (unit2 * price2);
+      var res2 = +unit1 + +unit2;
+      var result = res1 / res2;
+      document.getElementById("investedamount1").innerHTML ="<span>Amount invested </span> " + unit1 * price1;
+      document.getElementById("investedamount2").innerHTML ="<span>Amount invested </span> " + unit2 * price2;
+      document.getElementById("result").innerHTML = "<span>Total units </span> &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<bold>"
+        + res2 + "</bold><br/><br/><span>Average Price</span> &nbsp;&nbsp;&nbsp;<bold>" + result + "</bold>" 
+        + "<br/><br/><span>Total Amount</span> &nbsp;&nbsp;&nbsp;<bold>"
+        + res1 + "</bold>";
+    }
+    function clearFields() {
+      document.getElementById("units1").value = '';
+      document.getElementById("Price1").value = '';
+      document.getElementById("units2").value = '';
+      document.getElementById("Price2").value = '';
+      document.getElementById("result").innerHTML = '';
+      document.getElementById("investedamount1").innerHTML = '';
+      document.getElementById("investedamount2").innerHTML = '';
+    }
+  </script>
+</body>
+
+</html>
